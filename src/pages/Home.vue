@@ -26,6 +26,8 @@ function getCocktails() {
           <el-select
             v-model="rootStore.ingredient"
             class="select"
+            filterable
+            allow-create
             placeholder="Choose main ingredient"
             size="large"
             @change="getCocktails"
