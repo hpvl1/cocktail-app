@@ -27,11 +27,11 @@ const props = defineProps({
 
 .cocktail
     width: calc((100% - 76px) / 3)
-    padding-right: 38px
-    padding-bottom: 20px
+    margin-right: 38px
+    margin-bottom: 20px
 
     &:nth-child(3n + 3)
-        padding-right: 0
+        margin-right: 0
     &__picture
         width: 120px
         height: 120px
@@ -40,6 +40,10 @@ const props = defineProps({
         background-position: 50% 50%
         background-size: 100%
     &__title
+        width: 100%
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
         padding-top: 15px
         letter-spacing: 0.1em
 </style>
