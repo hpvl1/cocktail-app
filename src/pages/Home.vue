@@ -9,11 +9,10 @@ import CocktailItem from '../components/CocktailItem.vue';
 const rootStore = useRootStore();
 rootStore.getIngredients();
 
-const { ingredients, cocktails } = storeToRefs(rootStore);
-const ingredient = ref(null);
+const { ingredients, ingredient, cocktails } = storeToRefs(rootStore);
 
 function getCocktails() {
-  rootStore.getCocktails(ingredient.value);
+  rootStore.getCocktails(rootStore.ingredient);
 }
 </script>
 
@@ -25,7 +24,7 @@ function getCocktails() {
         <div class="line"></div>
         <div class="select-wrapper">
           <el-select
-            v-model="ingredient"
+            v-model="rootStore.ingredient"
             class="select"
             placeholder="Choose main ingredient"
             size="large"
