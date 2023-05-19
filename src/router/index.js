@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../pages/Home.vue';
 import Cocktail from '../pages/Cocktail.vue';
-import CocktailRandom from '../pages/CocktailRandom.vue';
+// import CocktailRandom from '../pages/CocktailRandom.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,11 +16,11 @@ const router = createRouter({
       name: 'Cocktail',
       component: Cocktail,
     },
-    {
-      path: '/random',
-      name: 'CocktailRandom',
-      component: CocktailRandom,
-    },
+    // {
+    //   path: '/random',
+    //   name: 'CocktailRandom',
+    //   component: CocktailRandom,
+    // },
   ],
 });
 
