@@ -63,16 +63,6 @@ function getCocktails() {
 
 <style lang="sass" scoped>
 @import '../assets/styles/main'
-
-.wrapper
-    display: flex
-    justify-content: center
-    align-items: center
-
-.info
-    padding: 80px 0
-    text-align: center
-
 .select-wrapper
     padding-top: 50px
 
@@ -91,7 +81,6 @@ function getCocktails() {
 .cocktails
     display: flex
     flex-wrap: wrap
-    justify-content: space-between
     align-items: center
     margin-top: 60px
     max-height: 400px
