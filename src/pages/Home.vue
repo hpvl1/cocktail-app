@@ -4,18 +4,23 @@ import { useRootStore } from '../stores/root';
 import { storeToRefs } from 'pinia';
 
 import AppLayout from '../components/AppLayout.vue';
+import CocktailItem from '../components/CocktailItem.vue';
 
 const rootStore = useRootStore();
 rootStore.getIngredients();
 
-const { ingredients } = storeToRefs(rootStore);
+const { ingredients, cocktails } = storeToRefs(rootStore);
 const ingredient = ref(null);
+
+function getCocktails() {
+  rootStore.getCocktails(ingredient.value);
+}
 </script>
 
 <template>
   <AppLayout imgUrl="/src/assets/img/bg-1.jpg">
     <div class="wrapper">
-      <div class="info">
+      <div v-if="!ingredient || !cocktails" class="info">
         <div class="title">Choose your drink</div>
         <div class="line"></div>
         <div class="select-wrapper">
@@ -24,6 +29,7 @@ const ingredient = ref(null);
             class="select"
             placeholder="Choose main ingredient"
             size="large"
+            @change="getCocktails"
           >
             <el-option
               v-for="item in ingredients"
@@ -37,7 +43,18 @@ const ingredient = ref(null);
           Try our delicious cocktail recipes for every occasion. Find delicious cocktail recipes by
           ingredient through our cocktail generator.
         </div>
-        <img src="../assets/img/cocktails.png" alt="Cocktails" class="img">
+        <img src="../assets/img/cocktails.png" alt="Cocktails" class="img" />
+      </div>
+      <div v-else class="info">
+        <div class="title">COCKTAILS WITH {{ ingredient }}</div>
+        <div class="line"></div>
+        <div class="cocktails">
+          <CocktailItem
+            v-for="cocktail in cocktails"
+            :key="cocktail.idDrink"
+            :cocktail="cocktail"
+          />
+        </div>
       </div>
     </div>
   </AppLayout>
@@ -67,7 +84,15 @@ const ingredient = ref(null);
     line-height: 36px
     letter-spacing: 0.1em
     color: $textMuted
-
 .img
     margin-top: 60px
+
+.cocktails
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+    align-items: center
+    margin-top: 60px
+    max-height: 400px
+    overflow-y: auto
 </style>
