@@ -1,15 +1,14 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { useRoute } from 'vue-router';
-import { COCKTAIL_BY_ID_URL } from '../constants';
+import axios from 'axios';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+
+import { COCKTAIL_RANDOM, INGREDIENT_IMG } from '../constants';
 
 import AppLayout from '../components/AppLayout.vue';
-import axios from 'axios';
-
-const route = useRoute();
 
 const cocktail = ref(null);
-const cocktailId = computed(() => route.path.split('/').pop());
 
 const ingredients = computed(() => {
   const ingredients = [];
@@ -17,9 +16,7 @@ const ingredients = computed(() => {
   for (let i = 1; i <= 15; i++) {
     if (!cocktail.value[`strIngredient${i}`]) break;
 
-    const ingredient = {};
-    ingredient.name = cocktail.value[`strIngredient${i}`];
-    ingredient.measure = cocktail.value[`strMeasure${i}`];
+    const ingredient = cocktail.value[`strIngredient${i}`];
 
     ingredients.push(ingredient);
   }
@@ -27,7 +24,7 @@ const ingredients = computed(() => {
 });
 
 async function getCocktail() {
-  const data = await axios.get(`${COCKTAIL_BY_ID_URL}${cocktailId.value}`);
+  const data = await axios.get(`${COCKTAIL_RANDOM}`);
   cocktail.value = data?.data?.drinks[0];
 }
 
@@ -41,14 +38,15 @@ getCocktail();
         <div class="info">
           <div class="title">{{ cocktail.strDrink }}</div>
           <div class="line"></div>
-          <div class="list">
-            <div v-for="(item, key) in ingredients" :key="key" class="list-item">
-              {{ item.name }}
-              <template v-if="item.measure">
-                |
-                {{ item.measure }}
-              </template>
-            </div>
+          <div class="slider">
+            <swiper :slides-per-view="3" :space-between="50" class="swiper">
+              <swiper-slide v-for="(ingredient, key) in ingredients" :key="key">
+                <img :src="`${INGREDIENT_IMG}${ingredient}-Small.png`" />
+                <div class="name">
+                  {{ ingredient }}
+                </div>
+              </swiper-slide>
+            </swiper>
           </div>
           <div class="instructions">
             {{ cocktail.strInstructions }}
@@ -59,4 +57,13 @@ getCocktail();
   </div>
 </template>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+.slider
+    padding: 50px 0
+
+.swiper
+    width: 586px
+
+.name
+    padding-top: 20px
+</style>
