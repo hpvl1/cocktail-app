@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 import { useRootStore } from '../stores/root';
 import { storeToRefs } from 'pinia';
 
