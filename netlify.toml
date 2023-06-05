@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+  [[redirects]]
+  from = "/random"
+  to = "/random.html"
+  status = 200
