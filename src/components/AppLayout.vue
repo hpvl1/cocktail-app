@@ -34,7 +34,8 @@ function backFunc() {
 
 <template>
   <div class="root">
-    <div :style="`background-image: url(${imgUrl})`" class="img"></div>
+    <!-- <div :style="`background-image: url(${imgUrl})`" class="img"></div> -->
+    <img :src="imgUrl" class="img" />
     <div class="main">
       <div class="btns">
         <el-button
@@ -62,7 +63,7 @@ function backFunc() {
 
 .img
     width: 50%
-    background-repeat: 50% 50%
+    // background-repeat: 50% 50%
     background-size: cover
 
 .main
